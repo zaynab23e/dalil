@@ -29,7 +29,7 @@ class AuthController extends Controller
         
         public function login( loginUser $request){
             $user = User::where('email', $request->input('email'))->first();
-            if (! $user || ! Hash::check($request->input('password'), $user->password)) {
+            if (! $user ) {
                 return response()->json(['msg' => 'error']);
             }
             $token = $user->createToken('api of token', [$user->name])->plainTextToken;
