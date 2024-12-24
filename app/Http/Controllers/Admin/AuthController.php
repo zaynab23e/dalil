@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     //API
-    public function register(store $request){
+    public function register(store $request)
+    {
 
         $validatedData = $request->validated();
         $validatedData['password'] = Hash::make($validatedData['password']);
@@ -21,7 +22,7 @@ class AuthController extends Controller
         return response()->json($admin, 201);
     }
 
-    //web
+    //WEB
     public function loadLoginPage()
     {
         return view('login');
@@ -37,7 +38,7 @@ class AuthController extends Controller
         return back()->withErrors(['error' => 'Invalid Credentials'])->withInput();
     }
 
-    
+
     public function logout(Request $request)
     {
         Auth::logout();
