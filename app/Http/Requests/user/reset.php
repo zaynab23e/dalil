@@ -22,9 +22,9 @@ class reset extends FormRequest
     public function rules(): array
     {
         return [
-        'email'     => 'required|email|',
-        'code'      => 'required|numeric',
-        'password'  => 'required|string',
+        'identifier' => 'required', 
+        'code'       => 'required|numeric',
+        'password'   => 'required|string',
         ];
     }
 }
