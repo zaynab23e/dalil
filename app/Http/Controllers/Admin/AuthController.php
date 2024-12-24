@@ -31,17 +31,17 @@ class AuthController extends Controller
     {
         $credentials = $request->validated();
         if (Auth::guard('admin')->attempt($credentials)) {
-            return redirect()->route('admin.dashboard')->with('success', 'تم تسجيل الدخول بنجاح');
+            return redirect()->route('admin.dashboard')->with('success', 'Successfully logged in');
         }
 
-        return back()->withErrors(['error' => 'بيانات غير صحيحة'])->withInput();
+        return back()->withErrors(['error' => 'Invalid Credentials'])->withInput();
     }
 
     
     public function logout(Request $request)
     {
         Auth::logout();
-        return redirect()->route('loginPage')->with('success', 'تم تسجيل الخروج بنجاح');
+        return redirect()->route('loginPage')->with('success', 'Logged out successfully');
     }
 
     public function dashboard()
