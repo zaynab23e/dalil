@@ -71,16 +71,8 @@
             <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
               <span class="mdi mdi-menu"></span>
             </button>
-            <ul class="navbar-nav w-100">
-              <li class="nav-item w-100">
-                <form class="nav-link mt-2 mt-md-0 d-none d-lg-flex search">
-                  <input type="text" class="form-control" placeholder="Search products">
-                </form>
-              </li>
-            </ul>
+          
             <ul class="navbar-nav navbar-nav-right">
-
-
               <li class="nav-item dropdown border-left">
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
                   <i class="mdi mdi-bell"></i>
@@ -171,9 +163,13 @@
             </main>
           </div>
           <!-- footer -->
-          <footer class="footer">
-          here is the footer
-          </footer>
+            <footer class="footer">
+            <div class="container text-center">
+              <div class="copyright">
+              &copy; {{ date('Y') }} All rights reserved to <strong></strong> <a href="https://fourthpyramidagcy.com/">Fourth Pyramid Agency</a>
+              </div>
+            </div>
+            </footer>
         </div>
         <!-- main-panel ends -->
       </div>
