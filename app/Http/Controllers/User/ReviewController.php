@@ -15,14 +15,14 @@ class ReviewController extends Controller
     {
         $validatedData = $request->validated();
         $review = Review::create($validatedData);
-        return response()->json(['review' => $review]);
+        return response()->json(['review' => $review],201);
     }
 
     public function destroy($id)
     {
         $review = Review::find($id);
         if (!$review) {
-            return response()->json(['message' => 'Review not found']);
+            return response()->json(['message' => 'Review not found'],404);
         }
         $review->delete();
         return response()->json(['message' => 'Review deleted successfully']);

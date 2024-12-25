@@ -11,9 +11,8 @@ class ProductSeeder extends Seeder
     {
         DB::table('products')->insert([
             // Insert your data here
-            
-            
+            'name' => 'Sample Product',
+            'price' => 100,
         ]);
     }
-
 }
