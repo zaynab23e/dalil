@@ -27,7 +27,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->input('email'))->first();
         if (!$user || !Hash::check($request->input('password'), $user->password)) {
             return response()->json('بيانات غير صحيحة', 404);
-        }
+
         $token = $user->createToken('api of token', [$user->name])->plainTextToken;
         return response()->json(
             [
@@ -109,4 +109,4 @@ class AuthController extends Controller
     }
 
 }
-
+}
