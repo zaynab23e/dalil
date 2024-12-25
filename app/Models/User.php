@@ -28,6 +28,8 @@ class User extends Authenticatable
         'email',
         'password',
         'verification_code',
+        'image',
+        'phone',
     ];
 
     /**
@@ -49,4 +51,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function review(){
+        return $this->hasMany(Review::class);
+    }
 }
