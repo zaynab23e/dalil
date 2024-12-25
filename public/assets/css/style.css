@@ -8548,6 +8548,7 @@
 
 body {
   margin: 0;
+  height: 100%;
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
@@ -25110,10 +25111,10 @@ dl li {
 .main-panel {
   transition: width 0.25s ease, margin 0.25s ease;
   width: 100%;
-  min-height: calc(100vh - 70px);
   padding-top: 70px;
   display: -webkit-flex;
   display: flex;
+  min-height: 100vh;
   -webkit-flex-direction: column;
   flex-direction: column;
 }

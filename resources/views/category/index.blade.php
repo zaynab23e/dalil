@@ -4,22 +4,23 @@
 
 
 <div class="container">
-    <h2>جميع الفئات</h2>
+    <h2>All Categories</h2>
 
     <!-- Success Message -->
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+    @if (Session::has('success'))
+        <div class="alert alert-success" style="background:#28272f; color: white;">{{ Session::get('success') }}</div>
+        @endif
+        @if (Session::has('error'))
+        <div class="alert alert-danger">{{ Session::get('error') }}</div>
+        @endif
 
     <!-- Add Category Button -->
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createCategoryModal">
+    <button class="btn btn-primary btn-rounded btn-fw" data-bs-toggle="modal" data-bs-target="#createCategoryModal" style="margin: 10px">
        Create Category
     </button>
 
     <!-- Category Table -->
-    <table class="table table-bordered">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>#</th>
@@ -50,7 +51,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash-alt"></i> حذف
+                                        <i class="fas fa-trash-alt"></i> delete
                                 </button>
                         </form>
 
@@ -58,7 +59,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="text-center">لم يتم العثور على فئات.</td>
+                    <td colspan="3" class="text-center">There are no categories yet</td>
                 </tr>
             @endforelse
         </tbody>
@@ -72,18 +73,18 @@
             <form action="{{ route('admin.categories.store') }}" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createCategoryModalLabel">إضافة فئة جديدة</h5>
+                    <h5 class="modal-title" id="createCategoryModalLabel">Add new category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="categoryName" class="form-label">اسم الفئة</label>
+                        <label for="categoryName" class="form-label">Category name</label>
                         <input type="text" name="name" class="form-control" id="categoryName" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">حفظ</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>
         </div>
