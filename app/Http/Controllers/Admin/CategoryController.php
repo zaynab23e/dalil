@@ -15,7 +15,7 @@ class CategoryController extends Controller
     }
     public function store(Request $request)
     {
-       $validatedData = $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string',
         ]);
         Category::create($validatedData);
