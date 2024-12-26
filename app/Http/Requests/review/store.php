@@ -26,7 +26,7 @@ class store extends FormRequest
             'rating'=>'required|numeric|in:1,1.5,2,2.5,3,3.5,4,4.5,5',
             'image'=>'nullable|string',
             'user_id'=>'required|exists:users,id',
-            //'place_id'=>'required|exists:users,id',
+            'place_id'=>'required|exists:users,id',
 
         ];
     }
