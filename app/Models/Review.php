@@ -14,11 +14,15 @@ class review extends Model
         'rating',
         'image',
         'user_id',
-        //'place_id',
+        'place_id',
     ];
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function place(){
+        return $this->belongsTo(Place::class);
     }
 
 }

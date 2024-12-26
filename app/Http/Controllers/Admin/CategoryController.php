@@ -28,4 +28,11 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->back()->with('success', 'Category deleted successfully.');
     }
+
+    public function viewPlaces($id)
+    {
+        $category = Category::find($id);
+        $places = $category->places()->paginate(15);
+        return view('category.show', compact('places', 'category'));
+    }
 }

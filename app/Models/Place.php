@@ -15,6 +15,7 @@ class Place extends Model
         'longitude',
         'latitude',
         'rating',
+        'status',
         'open_at',
         'close_at',
         'category_id',
@@ -29,8 +30,8 @@ class Place extends Model
     {
         return $this->hasMany(PlaceImage::class);
     }
-    // public function reviews()
-    // {
-    //     return $this->hasMany(Review::class);
-    // }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

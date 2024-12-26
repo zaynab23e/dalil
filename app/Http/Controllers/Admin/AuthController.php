@@ -45,9 +45,4 @@ class AuthController extends Controller
         return redirect()->route('loginPage')->with('success', 'Logged out successfully');
     }
 
-    public function dashboard()
-    {
-        return view('dashboard');
-    }
-
 }
