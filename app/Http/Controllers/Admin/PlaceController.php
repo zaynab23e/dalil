@@ -71,8 +71,7 @@ public function update(update $request, $id)
             } catch (\Exception $e) {
                 return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             }
-            
-        }
+                }
     }
     return redirect()->route('admin.places.index')->with('success', 'Place updated successfully');
 }
