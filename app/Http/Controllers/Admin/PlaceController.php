@@ -13,13 +13,23 @@ class PlaceController extends Controller
 
     public function index()
     {
-       $places = Place::with('category')->Paginate(15);
+        $query = Place::with('category');
+
+        if (request()->has('search')) {
+            $search = request()->input('search');
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhereHas('category', function($q) use ($search) {
+                      $q->where('name', 'like', "%{$search}%");
+                  });
+        }
+
+        $places = $query->paginate(15);
         return view('place.index', compact('places'));
     }
 
 public function show($id)
 {
-    $place = Place::with('category')->find($id);
+    $place = Place::with('category','images')->find($id);
     return view('place.show', compact('place'));
 }
 
@@ -32,14 +42,18 @@ public function create()
 public function store(store $request)
 {
     $validatedData = $request->validated();
-    $place =Place::create($request->except('images'));
+    $place = Place::create($request->except('images'));
 
     if ($request->has('images')) {
         foreach ($request->file('images') as $image) {
             try {
-                $imagePath = $image->store('places', 'public');
+                $destinationPath = public_path('places');
+                $fileName = uniqid() . '_' . $image->getClientOriginalName();
+                $image->move($destinationPath, $fileName);
+                $imageFullUrl = url('places/' . $fileName);
+
                 $place->images()->create([
-                    'image' => $imagePath,
+                    'image' => $imageFullUrl,
                 ]);
             } catch (\Exception $e) {
                 return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -48,6 +62,7 @@ public function store(store $request)
     }
     return redirect()->route('admin.places.index')->with('success', 'Place created successfully');
 }
+
 
 public function edit(Place $place, $id)
 {
@@ -72,7 +87,7 @@ public function update(update $request, $id)
             } catch (\Exception $e) {
                 return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             }
-        }
+                }
     }
     return redirect()->route('admin.places.index')->with('success', 'Place updated successfully');
 }

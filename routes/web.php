@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PlaceController;
 
 Route::get('/', [AuthController::class, 'loadLoginPage'])->name('loginPage');
@@ -11,12 +12,13 @@ Route::post('/login-admin', [AuthController::class, 'loginUser'])->name('loginUs
 //protected routes
 Route::middleware(['auth.admin'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout'); 
-    Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/dashboard', [HomeController::class, 'stats'])->name('admin.dashboard');
 
     //category routes
     Route::get('/category', [CategoryController::class, 'index'])->name('admin.categories.index');
     Route::post('/category', [CategoryController::class, 'store'])->name('admin.categories.store');
     Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
+    Route::get('/category/{id}/places', [CategoryController::class, 'viewPlaces'])->name('admin.categories.show');
 
     //place routes
     Route::get('/place', [PlaceController::class, 'index'])->name('admin.places.index');

@@ -44,15 +44,16 @@
                       
                     </td>
                     <td>
-
-
-                        <!-- Delete Category Button -->
+                        <!--  Action Buttons -->
+                        <a href="{{ route('admin.categories.show', $category->id) }}" class="btn btn-info btn-rounded btn-sm">
+                            <i class="fa fa-eye"></i>
+                        </a>
                         <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف هذه الفئة؟');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash-alt"></i> delete
-                                </button>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-rounded btn-sm" onclick="return confirm('Are You sure?')">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
                         </form>
 
                     </td>

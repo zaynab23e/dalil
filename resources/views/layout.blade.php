@@ -52,7 +52,7 @@
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('admin.categories.index') }}">
               <span class="menu-icon">
-                <i class="mdi mdi-contacts"></i>
+                <i class="fa fa-tags"></i>
               </span>
               <span class="menu-title">Categories</span>
               <i class="menu-arrow"></i>
@@ -61,7 +61,7 @@
           <li class="nav-item menu-items">
             <a class="nav-link" href="{{ route('admin.places.index') }}">
               <span class="menu-icon">
-                <i class="mdi mdi-contacts"></i>
+                <i class="fa fa-building-o"></i>
               </span>
               <span class="menu-title">Places</span>
               <i class="menu-arrow"></i>
@@ -197,6 +197,8 @@
     <script src="{{ asset("assets/js/todolist.js") }}"></script>
     <script src="{{ asset("assets/js/proBanner.js") }}"></script>
     <script src="{{ asset("assets/js/dashboard.js") }}"></script>
+    <script src="{{ asset("https://cdn.jsdelivr.net/npm/apexcharts") }}"></script>
+
     <!-- End custom js for this page -->
   </body>
 </html>
