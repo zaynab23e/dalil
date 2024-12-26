@@ -10,14 +10,13 @@ use Illuminate\Http\Request;
 class ReviewController extends Controller
 {
 
-
     public function store(Store $request)
     {
         $validatedData = $request->validated();
         $review = Review::create($validatedData);
         return response()->json(['review' => $review],201);
     }
-    
+
     public function destroy($id)
     {
         $review = Review::find($id);
@@ -27,6 +26,7 @@ class ReviewController extends Controller
         $review->delete();
         return response()->json(['message' => 'Review deleted successfully']);
     }
+    //
 }
 
 
