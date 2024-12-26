@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
@@ -26,9 +25,9 @@ class AuthController extends Controller
     public function login(login $request)
     {
         $user = User::where('email', $request->input('email'))->first();
-        if (!$user) {
-            return response()->json('المستخدم غير موجود', 404);
-        }
+        if (!$user || !Hash::check($request->input('password'), $user->password)) {
+            return response()->json('بيانات غير صحيحة', 404);
+
         $token = $user->createToken('api of token', [$user->name])->plainTextToken;
         return response()->json(
             [
@@ -109,4 +108,5 @@ class AuthController extends Controller
         return response()->json(['message' => 'تم إعادة تعيين كلمة المرور بنجاح']);
     }
 
+}
 }

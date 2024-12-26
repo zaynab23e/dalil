@@ -4,7 +4,11 @@ namespace App\Http\Requests\user;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class login extends FormRequest
+<<<<<<<< HEAD:app/Http/Requests/user/update.php
+class update extends FormRequest
+========
+class reset extends FormRequest
+>>>>>>>> 48acb2bde2bf712d122428549a28e358621cbe95:app/Http/Requests/user/reset.php
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +26,10 @@ class login extends FormRequest
     public function rules(): array
     {
         return [
-        'email'     => 'required|email',
-        'password'  => 'required|string',
+            'name'     => 'nullable|string',
+            'phone'    => 'nullable|string',
+            'email'    => 'nullable|email',
+            'image'    => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
         ];
     }
 }

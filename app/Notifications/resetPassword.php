@@ -1,10 +1,10 @@
 <?php
+namespace App\Notifications;
 
 namespace App\Notifications;
 
 use Illuminate\Notifications\Messages\VonageMessage;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -57,7 +57,7 @@ class resetPassword extends Notification
     public function toVonage(object $notifiable): VonageMessage
     {
         return (new VonageMessage)
-                    ->content('Your SMS message content');
+                    ->content('Your reset password code is: ' . $this->code);
     }
 
 }
