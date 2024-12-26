@@ -24,12 +24,6 @@ class User extends Authenticatable
         'phone',
         'image',
         'password',
-<<<<<<< HEAD
-=======
-        'verification_code',
-        'image',
-        'phone',
->>>>>>> 48acb2bde2bf712d122428549a28e358621cbe95
     ];
 
     /**
@@ -51,13 +45,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-<<<<<<< HEAD
     public function routeNotificationForVonage(Notification $notification): string
     {
         return $this->phone;
-=======
+    }
     public function review(){
         return $this->hasMany(Review::class);
->>>>>>> 48acb2bde2bf712d122428549a28e358621cbe95
     }
 }

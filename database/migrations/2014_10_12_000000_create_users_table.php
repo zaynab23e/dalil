@@ -16,11 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone')->unique();
             $table->string('email')->unique();
-<<<<<<< HEAD
-=======
-            $table->timestamp('verified_at')->nullable();
-            $table->string('verification_code')->nullable();
->>>>>>> 48acb2bde2bf712d122428549a28e358621cbe95
             $table->string('image')->nullable();
             $table->string('password');
             $table->rememberToken();

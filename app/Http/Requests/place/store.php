@@ -26,7 +26,7 @@ class store extends FormRequest
             'map_disc'    => 'required|string',
             'longitude'   => 'required|numeric',
             'latitude'    => 'required|numeric',
-            'rating'      => 'required|numeric',
+            'rating'      => 'nullable|numeric',
             'open_at'     => 'required|date_format:H:i',
             'close_at'    => 'required|date_format:H:i',
             'images'      => 'required|array',

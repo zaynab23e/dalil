@@ -3,12 +3,8 @@
 namespace App\Http\Requests\user;
 
 use Illuminate\Foundation\Http\FormRequest;
-
-<<<<<<<< HEAD:app/Http/Requests/user/update.php
 class update extends FormRequest
-========
-class reset extends FormRequest
->>>>>>>> 48acb2bde2bf712d122428549a28e358621cbe95:app/Http/Requests/user/reset.php
+
 {
     /**
      * Determine if the user is authorized to make this request.
