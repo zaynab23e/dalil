@@ -17,7 +17,7 @@ class ReviewController extends Controller
         $review = Review::create($validatedData);
         return response()->json(['review' => $review],201);
     }
-
+    
     public function destroy($id)
     {
         $review = Review::find($id);
