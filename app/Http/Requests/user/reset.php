@@ -27,10 +27,7 @@ class reset extends FormRequest
         'identifier' => 'required', 
         'code'       => 'required|numeric',
         'password'   => 'required|string',
-            'name'     => 'nullable|string',
-            'phone'    => 'nullable|string',
-            'email'    => 'nullable|email',
-            'image'    => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+
         ];
     }
 }

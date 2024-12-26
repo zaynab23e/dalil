@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('map_disc');
             $table->string('longitude');
             $table->string('latitude');
-            $table->double('rating');
+            $table->double('rating')->default(0);
             $table->time('open_at');
             $table->time('close_at');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
