@@ -10,11 +10,20 @@ class PlaceController extends Controller
 {
     public function index()
     {
-        $places = Place::all();
+        $places = Place::paginate(12);
         foreach ($places as $place) {
             $place->updateStatus();
         }
-            return response()->json($places, 200);
+        return response()->json($places, 200);
+    }
+
+    public function search(Request $request)
+    {
+        $places = Place::where('name', 'like', '%' . $request->name . '%')->paginate(12);
+        foreach ($places as $place) {
+            $place->updateStatus();
+        }
+        return response()->json($places, 200);
     }
     public function show($id)
     {

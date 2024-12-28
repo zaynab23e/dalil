@@ -34,6 +34,7 @@ Route::delete('/place/{placeId}/delete-review',[ReviewController::class,'destroy
 
 //Places Routes
 Route::get('/all-places',[PlaceController::class,'index']);
+Route::get('/search',[PlaceController::class,'search']);
 Route::get('/place/{id}',[PlaceController::class,'show']);
 Route::get('/top-rated-places',[PlaceController::class,'topRated']);
 Route::get('/new-places',[PlaceController::class,'newPlaces']);
