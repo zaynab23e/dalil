@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('map_disc');
+            $table->string('map_disc')->nullable();
             $table->string('longitude');
             $table->string('latitude');
             $table->double('rating')->default(0);
             $table->enum('status', ['مفتوح', 'مغلق'])->default('مفتوح');
-            $table->time('open_at');
-            $table->time('close_at');
+            $table->time('open_at')->default('10:00:00');
+            $table->time('close_at')->default('03:00:00');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });

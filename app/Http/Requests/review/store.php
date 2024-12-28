@@ -22,11 +22,8 @@ class store extends FormRequest
     public function rules(): array
     {
         return [
-            'content'=>'required|string',
-            'rating'=>'required|numeric|in:1,1.5,2,2.5,3,3.5,4,4.5,5',
-            'image'=>'nullable|string',
-            'user_id'=>'required|exists:users,id',
-            'place_id'=>'required|exists:users,id',
+            'content'=>'nullable|string',
+            'image'=>'nullable|image|mimes:png,jpg,jpeg|max:2048',
 
         ];
     }

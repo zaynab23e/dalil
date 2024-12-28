@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class review extends Model
+class Favorite extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'content',
-        'image',
+    protected $fillable = [
         'user_id',
         'place_id',
     ];
@@ -23,5 +21,4 @@ class review extends Model
     public function place(){
         return $this->belongsTo(Place::class);
     }
-
 }
