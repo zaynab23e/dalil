@@ -8,7 +8,7 @@ use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\RatingController;
 use App\Http\Controllers\User\FavoriteController;
-
+use App\Http\Controllers\User\LocationController;
 
 Route::post('/register-admin', 'App\Http\Controllers\Admin\AuthController@register');
 
@@ -22,6 +22,7 @@ Route::post('/reset-password',[AuthController::class,'resetPassword']);
 Route::group(['middleware'=>['auth:sanctum']], function(){
 
 //profile Routes
+Route::post('/store-location',[LocationController::class,'storeLocation']);
 Route::get('/logout',[AuthController::class,'logout']);
 Route::get('/profile',[ProfileController::class,'getProfile']);
 Route::post('/update-profile',[ProfileController::class,'updateProfile']);
@@ -38,6 +39,7 @@ Route::get('/search',[PlaceController::class,'search']);
 Route::get('/place/{id}',[PlaceController::class,'show']);
 Route::get('/top-rated-places',[PlaceController::class,'topRated']);
 Route::get('/new-places',[PlaceController::class,'newPlaces']);
+Route::get('/nearby-places',[PlaceController::class,'getNearbyPlaces']);
 
 // Rating Routes
 Route::post('/place/{placeId}/rate',[RatingController::class,'rate']);

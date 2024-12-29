@@ -46,7 +46,7 @@ class AuthController extends Controller
         return response()->json(
             [ 
                'message'=>'تم التسجيل بنجاح',
-                'user' => $user,
+                'user' => $user->only(['id', 'name', 'email', 'phone','created_at','updated_at']),
                 'token' => $token
             ]
         );
@@ -59,7 +59,7 @@ class AuthController extends Controller
 
         $user = Auth::user();
         Auth::user()->tokens()->delete();
-        return response()->json('تم تسجيل الخروج بنجاح', 200);
+        return response()->json(['message'=>'تم تسجيل الخروج بنجاح'], 200);
     }
 
 

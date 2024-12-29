@@ -50,4 +50,37 @@ class PlaceController extends Controller
             return response()->json($places, 200);
     }
 
+    public function getNearbyPlaces()
+    {
+        $user = auth()->user();
+        $userLocation = $user->location()->first();
+
+        if (!$userLocation) {
+            return response()->json(['message' => 'يرجى تحديد موقعك أولاً.'], 400);
+        }
+
+        $latitude = $userLocation->latitude;
+        $longitude = $userLocation->longitude;
+
+        $radius = 0.1;
+        $places = Place::selectRaw(
+            "*, (
+                6371 * acos(
+                    cos(radians(?)) *
+                    cos(radians(latitude)) *
+                    cos(radians(longitude) - radians(?)) +
+                    sin(radians(?)) *
+                    sin(radians(latitude))
+                )
+            ) AS distance",
+            [$latitude, $longitude, $latitude]
+        )
+        ->having('distance', '<=', $radius)
+        ->orderBy('distance', 'asc')
+        ->with('images')
+        ->get();
+
+        return response()->json($places, 200);
+    }
+
 }

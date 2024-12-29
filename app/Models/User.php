@@ -60,4 +60,8 @@ class User extends Authenticatable
     public function ratings(){
         return $this->hasMany(Rating::class);
     }
+
+    public function location(){
+        return $this->hasOne(UserLocation::class);
+    }
 }
