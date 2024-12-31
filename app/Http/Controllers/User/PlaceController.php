@@ -21,7 +21,7 @@ class PlaceController extends Controller
 
     public function search(Request $request)
     {
-        $places = Place::where('name', 'like', '%' . $request->name . '%')->with('images')->paginate(12);
+        $places = Place::where('name', 'like', '%' . $request->name . '%')->with('images')->withCount('reviews')->paginate(12);
         foreach ($places as $place) {
             $place->updateStatus();
         }
@@ -78,6 +78,7 @@ class PlaceController extends Controller
         ->having('distance', '<=', $radius)
         ->orderBy('distance', 'asc')
         ->with('images')
+        ->withCount('reviews')
         ->get();
 
         return response()->json($places, 200);

@@ -23,17 +23,17 @@ class ReviewController extends Controller
             $validatedData['image'] = env('APP_URL') . '/public/reviews/' . $imageName;
         }
         $review = Review::create($validatedData);
-        return response()->json('تم حفظ التقييم بنجاح', 201);
+        return response()->json(['message'=>'تم حفظ التقييم بنجاح'], 201);
     }
 
     public function destroy($id)
     {
         $review = Review::find($id);
         if (!$review) {
-            return response()->json('التقييم غير موجود', 404);
+            return response()->json(['message'=>'التقييم غير موجود'], 404);
         }
         $review->delete();
-        return response()->json('تم مسح التقييم بنجاح', 200);
+        return response()->json(['message'=>'تم مسح التقييم بنجاح'], 200);
     }
 }
 

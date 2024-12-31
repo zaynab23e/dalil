@@ -11,7 +11,7 @@ class FavoriteController extends Controller
 {
     public function index()
     {
-        $favorites = auth()->user()->favorites;
+        $favorites = auth()->user()->favorites()->with('images')->withCount('reviews')->paginate(12);
         return response()->json($favorites, 200);
     }
     public function toggleFavorite(Request $request, $placeId)
@@ -22,11 +22,11 @@ class FavoriteController extends Controller
         if ($user->favorites()->where('place_id', $placeId)->exists())
         {
             $user->favorites()->detach($placeId);
-            return response()->json('تمت إزالة المكان من المفضلة', 200);
+            return response()->json(['message'=>'تمت إزالة المكان من المفضلة'], 200);
         } else 
         {
             $user->favorites()->attach($placeId);
-            return response()->json('تمت إضافة المكان إلى المفضلة', 200);
+            return response()->json(['message'=>'تمت إضافة المكان إلى المفضلة'], 200);
         }
     }
 }

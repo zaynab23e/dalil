@@ -30,7 +30,7 @@ class ProfileController extends Controller
             $validatedData['image'] = env('APP_URL') . '/public/users/' . $imageName;
         }
         $user->update($validatedData);
-        return response()->json('تم تعديل الصفحة الشخصية بنجاح', 200);
+        return response()->json(['message' => 'تم تعديل الصفحة الشخصية بنجاح'], 200);
     }
     
     public function changePassword(Request $request)
@@ -52,6 +52,6 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $user->delete();
-        return response()->json('تم حذف الحساب بنجاح', 200);
+        return response()->json(['message' => 'تم حذف الحساب بنجاح'], 200);
     }
 }

@@ -34,7 +34,7 @@ class RatingController extends Controller
 
         $this->updatePlaceRating($placeId);
 
-        return response()->json('تم إضافة التقييم بنجاح', 200);
+        return response()->json(['message'=>'تم إضافة التقييم بنجاح'], 200);
     }
 
     private function updatePlaceRating($placeId)
