@@ -75,33 +75,42 @@ public function edit(Place $place, $id)
 public function update(update $request, $id)
 {
     $place = Place::find($id);
+
+    if (!$place) {
+        return redirect()->back()->withErrors(['error' => 'Place not found']);
+    }
+
     $validatedData = $request->validated();
+
     $place->update($request->except('images'));
 
     if ($request->has('images')) {
+        $place->images()->delete();
+
         foreach ($request->file('images') as $image) {
             try {
-                $imagePath = $image->store('places', 'public');
+                $destinationPath = public_path('places');
+                $fileName = uniqid() . '_' . $image->getClientOriginalName();
+                $image->move($destinationPath, $fileName);
+                $imageFullUrl = url('places/' . $fileName);
+
                 $place->images()->create([
-                    'image' => $imagePath,
+                    'image' => $imageFullUrl,
                 ]);
             } catch (\Exception $e) {
                 return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             }
-                }
+        }
     }
+
     return redirect()->route('admin.places.index')->with('success', 'Place updated successfully');
 }
+
 
 public function destroy($id)
 {
     $place = Place::find($id);
     $place->delete();
     return redirect()->route('admin.places.index')->with('success', 'Place deleted successfully');
-}
-
-public function test()
-{
-    return view('test');
 }
 }

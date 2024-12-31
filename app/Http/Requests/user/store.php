@@ -24,7 +24,7 @@ class store extends FormRequest
     {
         return [
             'name'     => 'required|string',
-            'phone'    => 'required|integer',
+            'phone'    => 'required|string',
             'email'    => 'required|email',
             'image'    => 'nullable|image',
             'password' => 'required|string',
