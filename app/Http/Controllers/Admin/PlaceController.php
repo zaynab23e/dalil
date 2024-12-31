@@ -30,6 +30,7 @@ class PlaceController extends Controller
 public function show($id)
 {
     $place = Place::with('category','images')->find($id);
+    $place->updateStatus();
     return view('place.show', compact('place'));
 }
 
