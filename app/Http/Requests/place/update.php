@@ -27,6 +27,7 @@ class update extends FormRequest
             'longitude'   => 'nullable|numeric',
             'latitude'    => 'nullable|numeric',
             'rating'      => 'nullable|numeric',
+            'cover_image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
             'open_at'     => 'nullable|date_format:H:i',
             'close_at'    => 'nullable|date_format:H:i',
             'images'      => 'nullable|array',

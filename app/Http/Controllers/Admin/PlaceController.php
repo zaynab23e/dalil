@@ -43,7 +43,16 @@ public function create()
 public function store(store $request)
 {
     $validatedData = $request->validated();
-    $place = Place::create($request->except('images'));
+    $place = Place::create($request->except('images', 'cover_image'));
+
+    if ($request->hasFile('cover_image')) {
+        $image = $request->file('cover_image');
+        $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+        $destinationPath = public_path('covers');
+        $image->move($destinationPath, $imageName);
+        $coverImageUrl = env('APP_URL') . '/covers/' . $imageName;
+        $place->update(['cover_image' => $coverImageUrl]);
+    }
 
     if ($request->has('images')) {
         foreach ($request->file('images') as $image) {

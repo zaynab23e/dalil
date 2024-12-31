@@ -38,12 +38,11 @@
             @endforeach
             </select>
         </div>
-                <!-- Image Upload Section -->
-                {{-- <div class="mb-3">
-                    <label for="images" class="form-label">Images</label>
-                    <input type="file" name="images[]" class="form-control file-upload-info" accept="image/*" multiple>
-                    <span class="input-group-append ms-2">
-                </div> --}}
+                <!-- Cover Image Upload Section -->
+                <div class="mb-3">
+                    <label for="cover_image" class="form-label">Cover Image</label>
+                    <input type="file" name="cover_image" class="form-control file-upload-info" accept="image/*">
+                </div>
 
                 <div class="form-group">
                     <label>File upload</label>

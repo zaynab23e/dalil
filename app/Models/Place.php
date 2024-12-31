@@ -16,6 +16,7 @@ class Place extends Model
         'longitude',
         'latitude',
         'rating',
+        'cover_image',
         'status',
         'open_at',
         'close_at',

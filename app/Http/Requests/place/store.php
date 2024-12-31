@@ -27,6 +27,7 @@ class store extends FormRequest
             'longitude'   => 'required|numeric',
             'latitude'    => 'required|numeric',
             'rating'      => 'nullable|numeric',
+            'cover_image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
             'open_at'     => 'required|date_format:H:i',
             'close_at'    => 'required|date_format:H:i',
             'images'      => 'required|array',
