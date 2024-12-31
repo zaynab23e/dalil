@@ -14,13 +14,27 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 class AuthController extends Controller
 {
-    public function register(store $request)
-    {
+   public function register(store $request)
+{
+    try {
         $validatedData = $request->validated();
         $validatedData['password'] = Hash::make($request->password);
         $user = User::create($validatedData);
-        return response()->json('تم التسجيل بنجاح', 201);
+        $token = $user->createToken('api of token', [$user->name])->plainTextToken;
+
+        return response()->json([
+            'message' => 'تم التسجيل بنجاح', 
+            'user'=>$user,
+            'token'=>$token
+            ],
+            201);
+    } catch (\Illuminate\Database\QueryException $e) {
+        if ($e->getCode() == 23000) {
+            return response()->json(['error' => 'رقم الهاتف أو البريد الإلكتروني مستخدم بالفعل'], 422);
+        }
+        throw $e;
     }
+}
 
     public function login(login $request)
     {
@@ -30,8 +44,9 @@ class AuthController extends Controller
         }
         $token = $user->createToken('api of token', [$user->name])->plainTextToken;
         return response()->json(
-            [
-                'user' => $user,
+            [ 
+               'message'=>'تم التسجيل بنجاح',
+                'user' => $user->only(['id', 'name', 'email', 'phone','created_at','updated_at']),
                 'token' => $token
             ]
         );
@@ -44,7 +59,7 @@ class AuthController extends Controller
 
         $user = Auth::user();
         Auth::user()->tokens()->delete();
-        return response()->json('تم تسجيل الخروج بنجاح', 200);
+        return response()->json(['message'=>'تم تسجيل الخروج بنجاح'], 200);
     }
 
 

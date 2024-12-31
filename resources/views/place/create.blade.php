@@ -108,8 +108,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Initialize the map
-        var map = L.map('map').setView([30.0444, 31.2357], 10); // Default to Cairo
+        var map = L.map('map').setView([31.0364, 31.3807], 10); // Default to Dakahlia, Egypt
         
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

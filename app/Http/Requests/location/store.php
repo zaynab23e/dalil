@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\review;
+namespace App\Http\Requests\location;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,9 +22,8 @@ class store extends FormRequest
     public function rules(): array
     {
         return [
-            'content'=>'nullable|string',
-            'image'=>'nullable|image|mimes:png,jpg,jpeg|max:2048',
-
+            'longitude' => 'required',
+            'latitude' => 'required',
         ];
     }
 }
