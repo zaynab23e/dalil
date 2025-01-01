@@ -51,47 +51,56 @@ class PlaceController extends Controller
     }
 
     public function getNearbyPlaces()
-{
-    $user = auth()->user();
-    $userLocation = $user->location()->first();
-
-    if (!$userLocation) {
-        return response()->json(['message' => 'يرجى تحديد موقعك أولاً.'], 400);
+    {
+        $user = auth()->user();
+        $userLocation = $user->location()->first();
+    
+        if (!$userLocation) {
+            return response()->json(['message' => 'يرجى تحديد موقعك أولاً.'], 400);
+        }
+    
+        $latitude = $userLocation->latitude;
+        $longitude = $userLocation->longitude;
+    
+        $radius = 0.1 * 1000; // 100 meters
+    
+        $places = Place::selectRaw(
+            "*, ROUND(
+                6371 * 1000 * acos(
+                    cos(radians(?)) *
+                    cos(radians(latitude)) *
+                    cos(radians(longitude) - radians(?)) +
+                    sin(radians(?)) *
+                    sin(radians(latitude))
+                )
+            ) AS distance",
+            [$latitude, $longitude, $latitude]
+        )
+        ->having('distance', '<=', $radius)
+        ->orderBy('rating', 'desc')
+        ->withCount('reviews')
+        ->get()
+        ->map(function ($place) {
+            $speed = 1.4;
+    
+            $place->time_to_arrive = round($place->distance / $speed);
+    
+            return $place;
+        });
+    
+        $this->updateStatus();
+    
+        return response()->json($places, 200);
     }
-
-    $latitude = $userLocation->latitude;
-    $longitude = $userLocation->longitude;
-
-    $radius = 0.1 * 1000;
-
-    $places = Place::selectRaw(
-        "*, ROUND(
-            6371 * 1000 * acos(
-                cos(radians(?)) *
-                cos(radians(latitude)) *
-                cos(radians(longitude) - radians(?)) +
-                sin(radians(?)) *
-                sin(radians(latitude))
-            )
-        ) AS distance",
-        [$latitude, $longitude, $latitude]
-    )
-    ->having('distance', '<=', $radius)
-    ->orderBy('rating', 'desc')
-    ->withCount('reviews')
-    ->get();
-
-   $this->updateStatus();
-
-    return response()->json($places, 200);
-}
-
-protected function updateStatus(){
-    $places = Place::all();
-    foreach ($places as $place) {
-        $place->updateStatus();
+    
+    protected function updateStatus()
+    {
+        $places = Place::all();
+        foreach ($places as $place) {
+            $place->updateStatus();
+        }
     }
-}
+    
 
 
 }

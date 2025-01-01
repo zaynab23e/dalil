@@ -1,0 +1,11 @@
+5. Tailscale (for Secure Team Testing)
+What It Does:
+Creates a private, secure network for your team.
+Exposes localhost to your team via a unique domain name.
+Steps:
+Install Tailscale:
+bash
+Copy code
+sudo apt install tailscale
+tailscale up
+Share the private network link (e.g., http://localhost.my-tailscale-domain).
