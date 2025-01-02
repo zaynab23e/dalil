@@ -30,7 +30,7 @@ class AuthController extends Controller
             201);
     } catch (\Illuminate\Database\QueryException $e) {
         if ($e->getCode() == 23000) {
-            return response()->json(['error' => 'رقم الهاتف أو البريد الإلكتروني مستخدم بالفعل'], 422);
+            return response()->json(['message' => 'رقم الهاتف أو البريد الإلكتروني مستخدم بالفعل'], 422);
         }
         throw $e;
     }
