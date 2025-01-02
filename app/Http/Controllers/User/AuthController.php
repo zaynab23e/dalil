@@ -39,8 +39,12 @@ class AuthController extends Controller
     public function login(login $request)
     {
         $user = User::where('email', $request->input('email'))->first();
-        if (!$user || !Hash::check($request->input('password'), $user->password)) {
-            return response()->json('بيانات غير صحيحة', 404);
+        if (!$user) {
+            return response()->json(['message' => 'البريد الإلكتروني غير صحيح'], 404);
+        }
+
+        if (!Hash::check($request->input('password'), $user->password)) {
+            return response()->json(['message' => 'كلمة المرور غير صحيحة'], 403);
         }
         $token = $user->createToken('api of token', [$user->name])->plainTextToken;
         return response()->json(
@@ -74,7 +78,7 @@ class AuthController extends Controller
             : User::where('phone', $request->identifier)->first();
 
         if (!$user) {
-            return response()->json('المستخدم غير موجود', 404);
+            return response()->json(['message'=>'المستخدم غير موجود'], 404);
         }
 
         $code = mt_rand(1000, 9999);
@@ -92,10 +96,10 @@ class AuthController extends Controller
                 $message->to($user->email)
                     ->subject('رمز إعادة تعيين كلمة المرور');
             });
-            return response()->json(['message' => 'تم إرسال رمز إعادة تعيين كلمة المرور إلى بريدك الإلكتروني']);
+            return response()->json(['message' => 'تم إرسال رمز إعادة تعيين كلمة المرور إلى بريدك الإلكتروني'],200);
         } else {
             $user->notify(new resetPassword($code));
-            return response()->json(['message' => 'تم إرسال رمز إعادة تعيين كلمة المرور إلى هاتفك']);
+            return response()->json(['message' => 'تم إرسال رمز إعادة تعيين كلمة المرور إلى هاتفك'],200);
         }
     }
 
@@ -123,7 +127,7 @@ class AuthController extends Controller
         $user->save();
 
         DB::table('password_reset_tokens')->where($isEmail ? 'email' : 'email', $request->identifier)->delete();
-        return response()->json(['message' => 'تم إعادة تعيين كلمة المرور بنجاح']);
+        return response()->json(['message' => 'تم إعادة تعيين كلمة المرور بنجاح'], 200);
     }
 
 }

@@ -4,14 +4,14 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Review;
-use App\Http\Requests\Review\Store;
+use App\Http\Requests\review\store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
 
-    public function store(Store $request, $placeId)
+    public function store(store $request, $placeId)
     {
         $validatedData = $request->validated();
         $validatedData['place_id'] = $placeId;

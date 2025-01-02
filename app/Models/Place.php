@@ -36,6 +36,10 @@ class Place extends Model
     {
         return $this->hasMany(Review::class);
     }
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 
     public function favoritedBy()
 {

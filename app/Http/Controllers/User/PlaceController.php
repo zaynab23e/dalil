@@ -29,10 +29,18 @@ class PlaceController extends Controller
     }
     public function show($id)
     {
-        $place = Place::with('reviews','images')->withCount('reviews')->findOrFail($id);
+        $place = Place::with(['reviews.user', 'images', 'ratings'])->withCount('reviews')->findOrFail($id);
+    
+        $place->reviews->each(function ($review) use ($place) {
+            $userRating = $place->ratings->firstWhere('user_id', $review->user_id);
+            $review->user_rating = $userRating ? $userRating->rating : null;
+        });
+    
         $place->updateStatus();
+    
         return response()->json($place, 200);
     }
+    
     
     public function topRated(){
         $places = Place::orderBy('rating', 'desc')->take(5)->with('images')->withCount('reviews')->get();
@@ -62,7 +70,7 @@ class PlaceController extends Controller
         $latitude = $userLocation->latitude;
         $longitude = $userLocation->longitude;
     
-        $radius = 0.1 * 1000; // 100 meters
+        $radius = 0.1 * 1000;
     
         $places = Place::selectRaw(
             "*, ROUND(
