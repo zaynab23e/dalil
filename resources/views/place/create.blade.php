@@ -41,13 +41,7 @@
         </select>
     </div>
 
-    <!-- Subcategory Dropdown -->
-    <div class="mb-3">
-        <label for="subcategory_id" class="form-label">Subcategory (Optional)</label>
-        <select name="subcategory_id" class="form-control" id="subcategorySelect">
-            <option value="">Select Subcategory</option>
-        </select>
-    </div>
+
                 <!-- Cover Image Upload Section -->
                 <div class="mb-3">
                     <label for="cover_image" class="form-label">Cover Image</label>
