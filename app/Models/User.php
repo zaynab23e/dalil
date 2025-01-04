@@ -45,6 +45,15 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected $attributes = [
+        'image' => 'public/defaults/default-profile.png',
+    ];
+
+    public function getImageAttribute($value)
+    {
+        return $value ?: asset('public/defaults/default-profile.png');
+    }
+
     public function routeNotificationForVonage(Notification $notification): string
     {
         return $this->phone;

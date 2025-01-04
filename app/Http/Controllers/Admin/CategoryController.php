@@ -10,13 +10,15 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::whereNull('parent_id')->with('children')->get();
         return view('category.index', compact('categories'));
     }
+    
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required|string',
+            'parent_id' => 'nullable|exists:categories,id'
         ]);
         Category::create($validatedData);
     

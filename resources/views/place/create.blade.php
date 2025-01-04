@@ -30,14 +30,24 @@
             <label for="close_at" class="form-label">Closing Time</label>
             <input type="time" name="close_at" class="form-control" required>
         </div>
-        <div class="mb-3">
-            <label for="category_id" class="form-label">Category</label>
-            <select name="category_id" class="form-control" required>
+       <!-- Category Dropdown -->
+       <div class="mb-3">
+        <label for="category_id" class="form-label">Category</label>
+        <select name="category_id" class="form-control" id="categorySelect" required>
+            <option value="">Select Category</option>
             @foreach($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
             @endforeach
-            </select>
-        </div>
+        </select>
+    </div>
+
+    <!-- Subcategory Dropdown -->
+    <div class="mb-3">
+        <label for="subcategory_id" class="form-label">Subcategory (Optional)</label>
+        <select name="subcategory_id" class="form-control" id="subcategorySelect">
+            <option value="">Select Subcategory</option>
+        </select>
+    </div>
                 <!-- Cover Image Upload Section -->
                 <div class="mb-3">
                     <label for="cover_image" class="form-label">Cover Image</label>
@@ -139,4 +149,5 @@
         });
     });
 </script>
+
 @endsection

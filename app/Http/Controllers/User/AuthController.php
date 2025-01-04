@@ -18,6 +18,7 @@ class AuthController extends Controller
 {
     try {
         $validatedData = $request->validated();
+        $validatedData['image'] = 'public/defaults/default-profile.png';
         $validatedData['password'] = Hash::make($request->password);
         $user = User::create($validatedData);
         $token = $user->createToken('api of token', [$user->name])->plainTextToken;

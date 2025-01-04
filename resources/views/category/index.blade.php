@@ -30,39 +30,32 @@
         </thead>
         <tbody>
             @forelse ($categories as $category)
-                <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>
-                        <!-- Category Name with Toggle Arrow -->
-                        <span class="d-flex align-items-center">
-                            <button class="btn btn-sm btn-link text-decoration-none" onclick="toggleSubcategories({{ $category->id }})">
-                                <i class="fas fa-chevron-down" id="toggleIcon{{ $category->id }}"></i>
-                            </button>
-                            {{ $category->name }}
-                        </span>
-
-                      
-                    </td>
-                    <td>
-                        <!--  Action Buttons -->
-                        <a href="{{ route('admin.categories.show', $category->id) }}" class="btn btn-info btn-rounded btn-sm">
-                            <i class="fa fa-eye"></i>
-                        </a>
-                        <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('هل أنت متأكد أنك تريد حذف هذه الفئة؟');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-rounded btn-sm" onclick="return confirm('Are You sure?')">
-                                <i class="fa fa-trash-o"></i>
-                            </button>
-                        </form>
-
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="3" class="text-center">There are no categories yet</td>
-                </tr>
-            @endforelse
+            <tr>
+                <td>{{ $category->id }}</td>
+                <td>
+                    {{ $category->name }}
+                    @if ($category->children->isNotEmpty())
+                        <ul>
+                            @foreach ($category->children as $child)
+                                <li>{{ $child->name }}</li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </td>
+                <td>
+                    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="3">No categories available.</td>
+            </tr>
+        @endforelse
+        
         </tbody>
     </table>
 </div>
@@ -74,13 +67,24 @@
             <form action="{{ route('admin.categories.store') }}" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createCategoryModalLabel">Add new category</h5>
+                    <h5 class="modal-title" id="createCategoryModalLabel">Add New Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <!-- Category Name -->
                     <div class="mb-3">
-                        <label for="categoryName" class="form-label">Category name</label>
+                        <label for="categoryName" class="form-label">Category Name</label>
                         <input type="text" name="name" class="form-control" id="categoryName" required>
+                    </div>
+                    <!-- Parent Category -->
+                    <div class="mb-3">
+                        <label for="parentCategory" class="form-label">Parent Category (Optional)</label>
+                        <select name="parent_id" class="form-select" id="parentCategory">
+                            <option value="" selected>No Parent</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -91,6 +95,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Font Awesome for Icons -->
 

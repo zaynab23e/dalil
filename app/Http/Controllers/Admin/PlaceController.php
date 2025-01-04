@@ -34,6 +34,7 @@ public function show($id)
     return view('place.show', compact('place'));
 }
 
+
 public function create()
 {
     $categories = Category::all();
