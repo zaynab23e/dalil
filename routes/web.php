@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PlaceController;
+use App\Http\Controllers\Admin\ReviewController;
 
 Route::get('/', [AuthController::class, 'loadLoginPage'])->name('loginPage');
 Route::post('/login-admin', [AuthController::class, 'loginUser'])->name('loginUser');
@@ -28,6 +29,11 @@ Route::middleware(['auth.admin'])->group(function () {
     Route::get('/edit-place/{id}', [PlaceController::class, 'edit'])->name('admin.places.edit');
     Route::put('/update-place/{id}', [PlaceController::class, 'update'])->name('admin.places.update');
     Route::delete('/delete-place/{id}', [PlaceController::class, 'destroy'])->name('admin.places.destroy');
+
+    //reviews routes
+    Route::get('/users-reviews', [ReviewController::class, 'allReviews'])->name('admin.reviews.index');
+    Route::delete('/delete-review/{id}', [ReviewController::class, 'deleteReview'])->name('admin.reviews.destroy');
+    Route::get('/show-review/{id}', [ReviewController::class, 'showReview'])->name('admin.reviews.show');
 
 });
 

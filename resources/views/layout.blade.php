@@ -67,6 +67,15 @@
               <i class="menu-arrow"></i>
             </a>
           </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('admin.reviews.index') }}">
+              <span class="menu-icon">
+                <i class="fa fa-drivers-license-o"></i>
+              </span>
+              <span class="menu-title">Reviews</span>
+              <i class="menu-arrow"></i>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- end sidebar -->

@@ -35,6 +35,23 @@ class ReviewController extends Controller
         $review->delete();
         return response()->json(['message'=>'تم مسح التقييم بنجاح'], 200);
     }
+
+    public function allReviews()
+{
+    $reviews = Review::with(['user', 'place'])
+        ->get()
+        ->map(function ($review) {
+            $userRating = $review->user->ratings()
+                ->where('place_id', $review->place_id)
+                ->value('rating');
+            $review->user_rating = $userRating ?? null;
+
+            return $review;
+        });
+
+    return response()->json($reviews, 200);
+}
+
 }
 
 

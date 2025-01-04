@@ -32,6 +32,7 @@ Route::delete('/delete-account',[ProfileController::class,'deleteAccount']);
 //Review Routes
 Route::post('/place/{placeId}/store-review',[ReviewController::class,'store']);
 Route::delete('/place/{placeId}/delete-review',[ReviewController::class,'destroy']);
+Route::get('/all-reviews',[ReviewController::class,'allReviews']);
 
 //Places Routes
 Route::get('/all-places',[PlaceController::class,'index']);
