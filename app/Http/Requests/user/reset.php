@@ -26,8 +26,6 @@ class reset extends FormRequest
 
         'identifier' => 'required', 
         'code'       => 'required|numeric',
-        'password'   => 'required|string',
-
         ];
     }
 }

@@ -16,7 +16,10 @@ Route::post('/register-admin', 'App\Http\Controllers\Admin\AuthController@regist
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/forgot-password',[AuthController::class,'forgotPassword']);
-Route::post('/reset-password',[AuthController::class,'resetPassword']);
+Route::post('/verify-code',[AuthController::class,'verifyResetCode']);
+Route::post('/update-password',[AuthController::class,'updatePassword']);
+Route::post('/update-password',[AuthController::class,'resetPassword']);
+
 
 ///////////////////////////////////////User Protected Routes////////////////////////////////////
 Route::group(['middleware'=>['auth:sanctum']], function(){

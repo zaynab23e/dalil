@@ -105,9 +105,25 @@ class AuthController extends Controller
     }
 
 
+    public function verifyResetCode(reset $request)
+    {
+        $isEmail = filter_var($request->identifier, FILTER_VALIDATE_EMAIL);
+        $resetEntry = DB::table('password_reset_tokens')
+            ->where($isEmail ? 'email' : 'email', $request->identifier)
+            ->where('token', $request->code)
+            ->first();
+
+        if (!$resetEntry) {
+            return response()->json([
+                'message' => 'رمز غير صالح',
+            ], 404);
+        }
+
+        return response()->json(['message' => 'رمز صالح'], 200);
+    }
+
     public function resetPassword(reset $request)
     {
-
         $isEmail = filter_var($request->identifier, FILTER_VALIDATE_EMAIL);
         $resetEntry = DB::table('password_reset_tokens')
             ->where($isEmail ? 'email' : 'email', $request->identifier)
@@ -132,3 +148,4 @@ class AuthController extends Controller
     }
 
 }
+

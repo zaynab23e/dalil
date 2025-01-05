@@ -40,8 +40,9 @@ class RatingController extends Controller
     private function updatePlaceRating($placeId)
     {
         $averageRating = Rating::where('place_id', $placeId)->avg('rating');
+        $roundedRating = round($averageRating * 2) / 2;
 
         $place = Place::findOrFail($placeId);
-        $place->update(['rating' => $averageRating]);
+        $place->update(['rating' => $roundedRating]);
     }
 }
